@@ -1,1 +1,1 @@
-MangaRanking
+Comiran
