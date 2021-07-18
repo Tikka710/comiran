@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\Mangafeedcontroller;
+use App\Http\Controllers\Api\ThemaController;
+use App\Http\Controllers\Api\MangaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,10 @@ use App\Http\Controllers\Api\Mangafeedcontroller;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-// Route::apiResource('test', TestController::class);
-Route::apiResource('feeds', Mangafeedcontroller::class);
+Route::apiResource('thema', ThemaController::class);
+Route::apiResource('article', MangaController::class);
+Route::apiResource('feed', Mangafeedcontroller::class);
+
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

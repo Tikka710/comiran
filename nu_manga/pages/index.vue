@@ -16,16 +16,12 @@
             ></v-img>
             </v-card>
           </section>
-          <section class="home__notice">
-            <h2 class="home_create_manga_ranking is-size-4">
+          <section class="make_comiran">
+            <button>
+              <h2 class="home_create_manga_ranking is-size-4">
               マンガランキングを作ろう！
             </h2>
-            <v-card
-            class="mx-auto"
-            max-width="344"
-            >
-
-            </v-card>
+            </button>
           </section>
         </v-col>
         <v-col class="col-md-4 col-xs-12">
@@ -60,18 +56,11 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      result: ''
+      
     }
   },
   mounted () {
-    axios.get('http://127.0.0.1:8000/api/test')
-      .then((response) => {
-        this.result = response.data.result
-      })
-      .catch((error) => {
-        console.log(error)
-        this.result = 'ERROR'
-      })
+  
   }
 }
 </script>
