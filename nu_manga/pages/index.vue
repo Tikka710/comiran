@@ -10,18 +10,21 @@
             <v-card
             max-width="344"
             >
-            <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-            ></v-img>
+
             </v-card>
           </section>
           <section class="make_comiran">
-            <button>
-              <h2 class="home_create_manga_ranking is-size-4">
+            <nuxt-link to='/manga'>
+              <v-btn
+              rounded
+              color="primary"
+              dark
+              >
+            <h2 class="home_create_manga_ranking is-size-4">
               マンガランキングを作ろう！
             </h2>
-            </button>
+          </v-btn>
+            </nuxt-link>
           </section>
         </v-col>
         <v-col class="col-md-4 col-xs-12">
@@ -56,11 +59,18 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      
+      thames: []
     }
   },
-  mounted () {
-  
+  created(){
+
+  },
+
+  method: {
+    getThames()
+    {
+      axios.get('')
+    }
   }
 }
 </script>

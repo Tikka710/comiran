@@ -3,7 +3,7 @@
         <v-app-bar color="#fcb69f" dark>
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-app-bar-title>ベストマンガ</v-app-bar-title>
+      <v-app-bar-title>コミラン</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
