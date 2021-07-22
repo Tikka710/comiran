@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use RakutenRws_Client;
+use App\Models\Manga;
 use FeedReader;
 
 class Mangafeedcontroller extends Controller
