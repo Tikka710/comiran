@@ -2,17 +2,50 @@
   <v-main>
     <v-container>
       <v-row>
-      <v-col class="col-md-8 col-xs-12">
+      <v-col class="col-md-8">
           <section class="home_manga_index">
             <h2 class="home__notice-h2 is-size-4">
               最近投稿されたマンガランキング
             </h2>
-            <v-card
-            max-width="344"
-            >
             
-
+            <v-row>
+              <v-col>
+            <div v-for="article in articles" :key="article.id">
+            <v-card
+            class="mx-auto"
+            max-width="300"
+            >
+              <p>{{article.nickname}}さんが作ったコミックランキング</p>
+              <h1>{{article.thames.name}}</h1>
+              <v-row>
+                <v-col>
+              <v-img
+              max-height="200"
+              max-width="100"
+              :src="article.img_url1"
+              ></v-img>
+              </v-col>
+              <v-col>
+              <v-img
+              max-height="200"
+              max-width="100"
+              :src="article.img_url2"
+              ></v-img>
+              </v-col>
+              <v-col>
+              <v-img
+              max-height="200"
+              max-width="100"
+              :src="article.img_url3"
+              ></v-img>
+              </v-col>
+              </v-row>      
             </v-card>
+            </div>
+              </v-col>
+            </v-row>
+            
+            
           </section>
           <section class="make_comiran">
             <nuxt-link to='/manga'>
@@ -26,22 +59,6 @@
             </h2>
           </v-btn>
             </nuxt-link>
-          </section>
-        </v-col>
-        <v-col class="col-md-4 col-xs-12">
-          <section class="sidebar-sns-section">
-            <h3 class="text-center sidebar-sns-h3 is-size-4">SNS共有</h3>
-            <div class="sidebar-sns-links">
-            </div>
-          </section>
-          <section class="home__notice">
-            <h2 class="text-center home__notice-h2 is-size-4">
-              お知らせ情報
-            </h2>
-            <dl>
-              <dt>2021/08/23</dt>
-              <dd>サイトを開設しました。</dd>
-            </dl>
           </section>
         </v-col>
 
@@ -60,17 +77,24 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      thames: []
+      thames: [],
+      articles: [],
     }
   },
   created(){
-
+    this.getArticles();
   },
 
-  method: {
-    getThames()
+  methods: {
+    getArticles()
     {
-      axios.get('')
+      axios.get('http://127.0.0.1:8000/api/article')
+      .then(res => {
+        console.log(res.data);
+        this.articles = res.data;
+      }).catch(error => {
+        console.log(error.responce);
+      });
     }
   }
 }

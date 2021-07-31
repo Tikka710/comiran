@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\Mangafeedcontroller;
 use App\Http\Controllers\Api\ThemaController;
-use App\Http\Controllers\Api\MangaController;
+use App\Http\Controllers\Api\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +18,8 @@ use App\Http\Controllers\Api\MangaController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('thema', ThemaController::class);
-Route::apiResource('article', MangaController::class);
+Route::apiResource('thame', ThemaController::class);
+Route::apiResource('article', ArticleController::class);
 Route::apiResource('feed', Mangafeedcontroller::class);
 
 

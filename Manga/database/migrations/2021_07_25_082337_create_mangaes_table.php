@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsernameTable extends Migration
+class CreateMangaesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateUsernameTable extends Migration
      */
     public function up()
     {
-        Schema::create('username', function (Blueprint $table) {
-            $table->id();
-            $table->string('nickname', 7);
+        Schema::create('mangaes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('title', 25);
+            $table->text('img_url');
+            $table->text('source_url');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateUsernameTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('username');
+        Schema::dropIfExists('mangaes');
     }
 }

@@ -3,23 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Manga;
-use App\Models\Username;
+use Illuminate\Database\Eloquent\Article;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Manga extends Model
 {
     use HasFactory;
 
-    protected $table = 'mangas';
+    protected $table = 'mangaes';
 
-    public function thema(): BelongsTo
+    public function article()
     {
-        return $this->belongsTo(Manga::class, 'thema_id');
-    }
-
-    public function username(): BelongsTo
-    {
-        return $this->belongsTo(Username::class, 'username_id');
+        return $this->hasMany(Article::class);
     }
 }
