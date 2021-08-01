@@ -18,7 +18,7 @@ use App\Http\Controllers\Api\ArticleController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('thame', ThemaController::class);
+// Route::apiResource('thame', ThemaController::class);
 Route::apiResource('article', ArticleController::class);
 Route::apiResource('feed', Mangafeedcontroller::class);
 
