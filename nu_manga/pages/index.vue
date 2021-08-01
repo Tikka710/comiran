@@ -16,7 +16,7 @@
             max-width="300"
             >
               <p>{{article.nickname}}さんが作ったコミックランキング</p>
-              <h1>{{article.thames.name}}</h1>
+              <h1>{{article.thame}}</h1>
               <v-row>
                 <v-col>
               <v-img

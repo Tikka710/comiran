@@ -10,11 +10,6 @@ class Article extends Model
     protected $table = 'articles';
     use HasFactory;
 
-    public function thames()
-    {
-        return $this->belongsTo(Thame::class, 'thema_id');
-    }
-
     public function mangaes()
     {
         return $this->belongsTo(Manga::class, 'manga_id');

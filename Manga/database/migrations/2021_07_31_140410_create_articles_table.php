@@ -16,11 +16,10 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nickname', 20);
+            $table->string('thame', 24);
             $table->text('img_url1');
             $table->text('img_url2');
             $table->text('img_url3');
-            $table->unsignedBigInteger('thema_id');
-            $table->foreign('thema_id')->references('id')->on('thames');
             $table->unsignedBigInteger('manga_id');
             $table->foreign('manga_id')->references('id')->on('mangaes');
             $table->timestamps();
