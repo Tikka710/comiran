@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::with(['mangaes'])->get();
+        $articles = Article::all();
         // dd($articles);
         return $articles;
     }
