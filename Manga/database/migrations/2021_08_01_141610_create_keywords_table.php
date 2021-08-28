@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMangaesTable extends Migration
+class CreateKeywordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateMangaesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mangaes', function (Blueprint $table) {
+        Schema::create('keywords', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('title', 25);
-            $table->text('img_url');
-            $table->text('source_url');
-            $table->unsignedBigInteger('keyword_id');
-            $table->foreign('keyword_id')->references('id')->on('keywords');
+            $table->string('content', 30);
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateMangaesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mangaes');
+        Schema::dropIfExists('keywords');
     }
 }

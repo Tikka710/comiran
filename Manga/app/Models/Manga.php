@@ -13,8 +13,8 @@ class Manga extends Model
 
     protected $table = 'mangaes';
 
-    public function article()
+    public function keyword()
     {
-        return $this->hasMany(Article::class);
+        return $this->BelongsTo(Keyword::class);
     }
 }

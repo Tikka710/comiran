@@ -18,22 +18,47 @@
           {{ ArticleData.thame }}
         </v-card>
 
-        <!-- <v-card>
+        <v-card>
         <v-card-title class="cyan">
           <span class="text-h5 white--text">2 マンガを選ぼう</span>
 
           <v-spacer></v-spacer>
-           
         </v-card-title>
         <v-text-field
-            v-model="ArticleData.Manga_url1"
-            id="thame"
-            label="マンガ1"
+            v-model="keyword"
+            id="keyword"
+            type="text"
+            label="キーワードを入力しよう"
           ></v-text-field>
-        <v-btn>
-      <v-btn>マンガを検索</v-btn>
-      </v-btn>
-        </v-card> -->
+          {{ keyword }}
+          <v-btn
+            depressed
+            color="primary"
+            @click="getManga"
+          >
+            検索
+          </v-btn>
+          <div v-for="manga in ArticleData.Manga_url" :key="manga.id">
+            <v-row align="center">       
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
+              <v-card>
+              <v-img
+              max-height="200"
+              max-width="100"
+              :src="manga.ImageUrl"
+              ></v-img>
+              <h1>{{manga.title}}</h1>
+            </v-card>
+            </v-col>
+            </v-row>
+
+          </div>
+
+        </v-card>
 
         <v-card>
         <v-card-title class="cyan">
@@ -70,11 +95,13 @@ export default {
         return {
             ArticleData: {
               thame: '',
-              // Manga_url1: '',
+              Manga_url: [],
               // Manga_url2: '',
               // Manga_url3: '',
               nickname: ''
-            }
+            },
+            keyword: '',
+            isSelected: ''
         };
     },
 
@@ -89,6 +116,20 @@ export default {
         })
         .then(res => {
           console.log(res);
+        })
+      },
+
+      getManga() {
+        axios.get('http://127.0.0.1:8000/api/feed', {
+          params: {
+          keyword: this.keyword,
+        }
+        })
+        .then(res => {
+          this.ArticleData.Manga_url = res.data;
+          console.log(res);
+        }).catch(error => {
+          console.log(error.responce);
         })
       }
     }

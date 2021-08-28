@@ -20,8 +20,6 @@ class CreateArticlesTable extends Migration
             $table->text('img_url1');
             $table->text('img_url2');
             $table->text('img_url3');
-            $table->unsignedBigInteger('manga_id');
-            $table->foreign('manga_id')->references('id')->on('mangaes');
             $table->timestamps();
         });
     }
