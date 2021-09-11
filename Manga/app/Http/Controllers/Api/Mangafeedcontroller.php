@@ -66,20 +66,38 @@ class Mangafeedcontroller extends Controller
                 $getmanga = Manga::where('title', 'like', '%'.$keyword.'%')->get();
                 // dd($getmanga);
                 foreach ($getmanga as $item) {
+                    $id = $item->id;
                     $title = $item->title;
                     $ImageUrl = $item->img_url;
                     $source_url = $item->source_url;
     
                     $result[] = [
-                        'title' => $title,
-                        'ImageUrl' => $ImageUrl,
-                        'source_url' => $source_url
+                        'id' => $id,
+                        'alt' => $title,
+                        'src' => $ImageUrl,
+                        // 'source_url' => $source_url
                     ];
                 };
                 // dd($result);
                 return $result;
             } else {
-                return  'DBに登録されています';
+                $getmanga = Manga::where('title', 'like', '%'.$keyword.'%')->get();
+
+                foreach ($getmanga as $item) {
+                    $id = $item->id;
+                    $title = $item->title;
+                    $ImageUrl = $item->img_url;
+                    $source_url = $item->source_url;
+    
+                    $result[] = [
+                        'id' => $id,
+                        'alt' => $title,
+                        'src' => $ImageUrl,
+                        // 'source_url' => $source_url
+                    ];
+                };
+
+                return  $result;
             }
 
             
