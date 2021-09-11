@@ -38,7 +38,34 @@
           >
             検索
           </v-btn>
-          <div v-for="manga in ArticleData.Manga_url" :key="manga.id">
+
+          <!-- <div v-show="this.isSelectedImage"> -->
+            <div v-for="select in isSelectedImage" :key="select.id"> 
+
+          <v-card>
+            
+            <v-img
+              max-height="200"
+              max-width="100"
+              :src="select[1]"
+            ></v-img>
+          </v-card>
+          </div>
+
+          <!-- </div> -->
+          <!-- <p>選択中: {{ this.isSelectedImage[1] }}</p> -->
+          <div v-if="isSelectedImage.length <= 3">
+           <vue-select-image
+              :data-images="ArticleData.Manga_image"
+              :is-multiple="true"
+              @onselectmultipleimage="onSelectImage"
+              v-model="isSelectedImage"
+            >
+          </vue-select-image>
+          </div>
+          
+          
+          <!-- <div v-for="manga in ArticleData.Manga_url" :key="manga.id">
             <v-row align="center">       
               <v-col
                 class="d-flex"
@@ -46,6 +73,8 @@
                 sm="6"
               >
               <v-card>
+           
+
               <v-img
               max-height="200"
               max-width="100"
@@ -56,7 +85,7 @@
             </v-col>
             </v-row>
 
-          </div>
+          </div> -->
 
         </v-card>
 
@@ -93,15 +122,22 @@ import axios from 'axios';
 export default {
     data(){
         return {
+      // dataImages:[{
+      //   id: '',
+      //   src: '',
+      //   title: ''
+      // }],
+
             ArticleData: {
               thame: '',
-              Manga_url: [],
+              Manga_image: [],
               // Manga_url2: '',
               // Manga_url3: '',
               nickname: ''
             },
             keyword: '',
-            isSelected: ''
+            isSelectedImage: [],
+            initialSelected: [],
         };
     },
 
@@ -126,11 +162,23 @@ export default {
         }
         })
         .then(res => {
-          this.ArticleData.Manga_url = res.data;
-          console.log(res);
+          this.ArticleData.Manga_image = res.data;
+
+          console.log(this.ArticleData.Manga_image);
         }).catch(error => {
           console.log(error.responce);
         })
+      },
+
+      onSelectImage(selected){
+        let arr = [];
+        for(let i=0; i<selected.length; i++){
+       arr.push(selected[i].id, selected[i].src, selected[i].alt);
+    }
+
+    this.isSelectedImage = arr;
+    console.log(this.isSelectedImage.length);
+    console.log(this.isSelectedImage);
       }
     }
     
