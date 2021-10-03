@@ -18,8 +18,37 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $articles = new Article;
-        $articles->thame = $request->thame;
-        $articles->nickname = $request->nickname;
+        $selectedImage = $request->input('img_url');
+        // dd($selectedImage);
+        $articles->img_url1 = $selectedImage[0];
+        $articles->img_url2 = $selectedImage[1];
+        $articles->img_url3 = $selectedImage[2];
+        // $res = [];
+        // foreach ($selectedImage as $image) {
+        //     // dd($image);
+        //     $articles->img_url1 = $image;
+        //     $articles->img_url2 = $image;
+        //     $articles->img_url3 = $image;
+
+            
+        // }
+        
+        
+        // dd($request);
+        $articles->thame = $request->input('thame');
+        // dd($articles->thame);
+        $articles->nickname = $request->input('nickname');
+        // dd($request->isSelectedImage);
+        
+        // dd($articles->img_url1);
         $articles->save();
+    }
+
+    public function show($id)
+    {
+        $articles = Article::where('id', $id)->get();
+        // dd($articles);
+
+        return $articles;
     }
 }

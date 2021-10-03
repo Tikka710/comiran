@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\ArticleController;
 */
 // Route::apiResource('thame', ThemaController::class);
 Route::apiResource('article', ArticleController::class);
+// Route::post('article', 'Api\ArticleController@store');
 Route::apiResource('feed', Mangafeedcontroller::class);
 
 

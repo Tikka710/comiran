@@ -1,20 +1,24 @@
 <template>
   <v-main>
     <v-container>
-      <v-row>
-      <v-col class="col-md-8">
-          <section class="home_manga_index">
-            <h2 class="home__notice-h2 is-size-4">
+          <h2 class="home__notice-h2 is-size-4">
               最近投稿されたマンガランキング
-            </h2>
+        </h2>
+      <v-row>
+        
+      <v-col class="col-md-8">
+          <!-- <section class="home_manga_index"> -->
+        
             
             <v-row>
-              <v-col>
-            <div v-for="article in articles" :key="article.id">
+              <!-- <v-col> -->
+            
+            <v-col v-for="article in articles" :key="article.id">
             <v-card
             class="mx-auto"
-            max-width="300"
+            max-width="250"
             >
+            <Nuxt-link tag="div" :to="{ name: 'ranking-id', params:{id: article.id}}">
               <p>{{article.nickname}}さんが作ったコミックランキング</p>
               <h1>{{article.thame}}</h1>
               <v-row>
@@ -39,14 +43,15 @@
               :src="article.img_url3"
               ></v-img>
               </v-col>
-              </v-row>      
+              </v-row>
+            </Nuxt-link> 
             </v-card>
-            </div>
-              </v-col>
+            </v-col>
+              <!-- </v-col> -->
             </v-row>
             
             
-          </section>
+          <!-- </section> -->
           <section class="make_comiran">
             <nuxt-link to='/manga'>
               <v-btn
