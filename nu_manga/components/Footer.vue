@@ -1,10 +1,11 @@
 <template>
     <div>
-       <v-footer dark padless class="footer">
-        <v-card-title class="teal">
-        <strong class="subheading">Tikka</strong>
+       <v-footer color="#E1A074">
+        <v-card-text class="py-2 text-center">
+        <strong>開発への要望</strong>
+        <strong>利用規約</strong>
+      </v-card-text>
         <v-spacer></v-spacer>
-      </v-card-title>
        </v-footer>
     </div>
     
@@ -17,9 +18,6 @@ export default {
 </script>
 
 
-<style scoped>
-.footer{
-  bottom: 0;
-}
+<style lang="scss">
 
 </style>

@@ -18,22 +18,17 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $articles = new Article;
+
         $selectedImage = $request->input('img_url');
+        $selectedSource = $request->input('source_url');
         // dd($selectedImage);
         $articles->img_url1 = $selectedImage[0];
         $articles->img_url2 = $selectedImage[1];
         $articles->img_url3 = $selectedImage[2];
-        // $res = [];
-        // foreach ($selectedImage as $image) {
-        //     // dd($image);
-        //     $articles->img_url1 = $image;
-        //     $articles->img_url2 = $image;
-        //     $articles->img_url3 = $image;
+        $articles->source_url1 = $selectedSource[0];
+        $articles->source_url2 = $selectedSource[1];
+        $articles->source_url3 = $selectedSource[2];
 
-            
-        // }
-        
-        
         // dd($request);
         $articles->thame = $request->input('thame');
         // dd($articles->thame);
@@ -50,5 +45,9 @@ class ArticleController extends Controller
         // dd($articles);
 
         return $articles;
+    }
+
+    public function likes()
+    {
     }
 }

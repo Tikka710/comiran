@@ -1,26 +1,26 @@
 <template>
   <v-main>
     <v-container>
-          <h2 class="home__notice-h2 is-size-4">
-              最近投稿されたマンガランキング
-        </h2>
-      <v-row>
-        
-      <v-col class="col-md-8">
-          <!-- <section class="home_manga_index"> -->
-        
-            
-            <v-row>
-              <!-- <v-col> -->
-            
-            <v-col v-for="article in articles" :key="article.id">
+      <Alert />
+        <v-row justify="center">
+          <v-col align="center">
+              <h2 class="index_title is-size-4">
+                最近投稿されたマンガランキング
+              </h2>
+            </v-col>
+        </v-row>
+    
+              
+        <v-row justify="center">
+          
+            <v-col v-for="article in articles" :key="article.id" cols=5 md=5 align="center">
             <v-card
+            color="#F5F5F4"
             class="mx-auto"
-            max-width="250"
             >
             <Nuxt-link tag="div" :to="{ name: 'ranking-id', params:{id: article.id}}">
-              <p>{{article.nickname}}さんが作ったコミックランキング</p>
-              <h1>{{article.thame}}</h1>
+              <p class="index_p text-subtitle-1 text-left">{{article.nickname}}さんが作ったコミックランキング</p>
+              <p class="index_p text-h5 text-left">{{article.thame}}</p>
               <v-row>
                 <v-col>
               <v-img
@@ -47,16 +47,14 @@
             </Nuxt-link> 
             </v-card>
             </v-col>
-              <!-- </v-col> -->
-            </v-row>
-            
-            
-          <!-- </section> -->
-          <section class="make_comiran">
+          </v-row>
+
+          <v-row justify="center">
+            <v-col align="center">
             <nuxt-link to='/manga'>
               <v-btn
               rounded
-              color="primary"
+              color="#cd6118"
               dark
               >
             <h2 class="home_create_manga_ranking is-size-4">
@@ -64,21 +62,20 @@
             </h2>
           </v-btn>
             </nuxt-link>
-          </section>
-        </v-col>
-
+            </v-col>
         </v-row>
 
-
-
+       
     </v-container>
   </v-main>
 
 </template>
 
 <script>
+import Alert from '../components/Alert.vue';
+import axios from 'axios';
+import Like from '../components/Like.vue';
 
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -86,6 +83,11 @@ export default {
       articles: [],
     }
   },
+  commponent: {
+        Alert,
+        Like
+    },
+
   created(){
     this.getArticles();
   },
@@ -104,3 +106,19 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+
+.index_title {
+  color: $font-color; 
+}
+
+.index_p {
+  color: $font-color; 
+}
+
+.home_create_manga_ranking {
+  color: $header-font-color;
+}
+
+
+</style>

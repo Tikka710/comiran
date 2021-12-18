@@ -2,8 +2,9 @@
  <div>
      <v-form>
     <v-container>
-        <v-card>
-        <v-card-title class="cyan">
+        
+        <v-card color="#D8D6D5">
+        <v-card-title>
           <span class="text-h5 white--text">1 ベスト3のテーマを決めよう</span>
 
           <v-spacer></v-spacer>
@@ -17,9 +18,9 @@
           {{ ArticleData.thame }}
         </v-card>
 
-        <v-card>
-        <v-card-title class="cyan">
-          <span class="text-h5 white--text">2 マンガを選ぼう</span>
+        <v-card color="#D8D6D5">
+        <v-card-title>
+          <span class="text-h5 white--text">2 マンガを選ぼう（３つまで）</span>
 
           <v-spacer></v-spacer>
         </v-card-title>
@@ -88,8 +89,8 @@
 
         </v-card>
 
-        <v-card>
-        <v-card-title class="cyan">
+        <v-card color="#D8D6D5">
+        <v-card-title>
           <span class="text-h5 white--text">3 ニックネーム</span>
 
           <v-spacer></v-spacer>
@@ -118,13 +119,14 @@
 <script>
 import axios from 'axios';
 
+
 export default {
     data(){
         return {
 
             ArticleData: {
-              thame: '',
-              
+              thame: '', 
+              source_url: [],
               isSelectedImage: [],
               nickname: ''
             },
@@ -135,17 +137,26 @@ export default {
         };
     },
 
+
     methods: {
       createArticle() {
+        
         axios.post('http://127.0.0.1:8000/api/article', {
             thame: this.ArticleData.thame,
             img_url: this.ArticleData.isSelectedImage,
-            // img_url2: this.ArticleData.Manga_url2,
-            // img_url3: this.ArticleData.Manga_url3,
+            source_url: this.ArticleData.source_url,
             nickname: this.ArticleData.nickname
         })
         .then(res => {
-          console.log(res);
+          this.$router.push("/");
+          this.$store.dispatch("showMessage", {
+            message: "投稿しました",
+            type: "sucess",
+            status: true,
+          },
+            { root: true }
+          )
+          
         }).catch(error => {
           console.log(error.responce);
         })
@@ -158,9 +169,21 @@ export default {
         }
         })
         .then(res => {
-          this.Manga_image = res.data;
+          if(res.data){
+            this.Manga_image = res.data;
+            this.ArticleData.source_url = res.data.source_url;
 
-          console.log(this.Manga_image);
+          console.log(res.data[0].source_url);
+          }else{
+              this.$store.dispatch("showMessage", {
+                message: "漫画を検索できませんでした",
+                type: "red darken-1",
+                status: true,
+          },
+            { root: true }
+          )
+          }
+          
         }).catch(error => {
           console.log(error.responce);
         })
@@ -168,15 +191,24 @@ export default {
 
       onSelectImage(selected){
         let arr = [];
+        let source = [];
         for(let i=0; i<selected.length; i++){
        arr.push(selected[i].src);
+       source.push(selected[i].source_url)
+
     }
+    // let source = [];
+    // for(let x=0; x<selected.length; x++){
+    //   source.push(selected[i].source_url)
+    // }
 
     // console.log(arr[0])
     this.ArticleData.isSelectedImage = arr;
+    this.ArticleData.source_url = source;
+    
 
     // console.log(this.ArticleData.isSelectedImage.length);
-    console.log(this.ArticleData.isSelectedImage);
+    console.log(this.ArticleData.source_url);
       }
     }
     
