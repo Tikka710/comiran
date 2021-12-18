@@ -12,21 +12,18 @@ class Mangafeedcontroller extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-        // $keyword = '僕のヒーローアカデミア';
         if (!empty($keyword)) {
             $isKeyword = Manga::where('title', 'like', '%'.$keyword.'%')->first();
-        
+            // dd($isKeyword);
             if (!isset($isKeyword)) {
-                
-                // foreach($isKeyword as $item)
-                // {
-                //     $title = $item->title;
-                //     $ImageUrl = $item->ImageUrl;
-
+                $RakutenUrl = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1064175175388514312&title={$keyword}&booksGenreId=001&size=9";
+                // dd($RakutenUrl);
+                // if (!$RakutenUrl) {
+                //     return responce()->json([
+                //         'message' => 'Manga not found.'
+                //     ], 404);
                 // }
 
-                $RakutenUrl = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1064175175388514312&title={$keyword}&booksGenreId=001&size=9";
-    
                 $opts = [
                 'http' => [
                     'method' => 'GET',
@@ -36,7 +33,6 @@ class Mangafeedcontroller extends Controller
                 $json = file_get_contents($RakutenUrl, false, stream_context_create($opts));
                 // $json = file_get_contents($RakutenUrl);
                 $json_decode = json_decode($json, true);
-                // dd($json_decode);
         
                 $res = [];
         
@@ -75,7 +71,7 @@ class Mangafeedcontroller extends Controller
                         'id' => $id,
                         'alt' => $title,
                         'src' => $ImageUrl,
-                        // 'source_url' => $source_url
+                        'source_url' => $source_url
                     ];
                 };
                 // dd($result);
@@ -93,11 +89,11 @@ class Mangafeedcontroller extends Controller
                         'id' => $id,
                         'alt' => $title,
                         'src' => $ImageUrl,
-                        // 'source_url' => $source_url
+                        'source_url' => $source_url
                     ];
                 };
 
-                return  $result;
+                return $result;
             }
 
             

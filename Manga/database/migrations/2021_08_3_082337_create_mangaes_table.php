@@ -18,8 +18,6 @@ class CreateMangaesTable extends Migration
             $table->text('title', 25);
             $table->text('img_url');
             $table->text('source_url');
-            $table->unsignedBigInteger('keyword_id');
-            $table->foreign('keyword_id')->references('id')->on('keywords');
             $table->timestamps();
         });
     }

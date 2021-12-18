@@ -20,10 +20,12 @@
 
 <script>
 import Form from "../components/Form"
+// import Alert from '../components/Alert';
 
 export default {
     commponent: {
-        Form
+        Form,
+        // Alert
     },
 
 }

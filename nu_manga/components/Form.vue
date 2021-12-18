@@ -1,9 +1,10 @@
 <template>
  <div>
-     <v-form v-model="valid">
+     <v-form>
     <v-container>
-        <v-card>
-        <v-card-title class="cyan">
+        
+        <v-card color="#D8D6D5">
+        <v-card-title>
           <span class="text-h5 white--text">1 ベスト3のテーマを決めよう</span>
 
           <v-spacer></v-spacer>
@@ -11,16 +12,15 @@
         </v-card-title>
         <v-text-field
             v-model="ArticleData.thame"
-            id="thame"
             type="text"
             label="テーマ"
           ></v-text-field>
           {{ ArticleData.thame }}
         </v-card>
 
-        <v-card>
-        <v-card-title class="cyan">
-          <span class="text-h5 white--text">2 マンガを選ぼう</span>
+        <v-card color="#D8D6D5">
+        <v-card-title>
+          <span class="text-h5 white--text">2 マンガを選ぼう（３つまで）</span>
 
           <v-spacer></v-spacer>
         </v-card-title>
@@ -39,27 +39,27 @@
             検索
           </v-btn>
 
-          <!-- <div v-show="this.isSelectedImage"> -->
-            <div v-for="select in isSelectedImage" :key="select.id"> 
+          <div v-show="this.ArticleData.isSelectedImage">
+            <div v-for="select in ArticleData.isSelectedImage" :key="select.id"> 
 
-          <v-card>
+            <v-card>
             
             <v-img
               max-height="200"
               max-width="100"
-              :src="select[1]"
+              :src="select"
             ></v-img>
-          </v-card>
+            </v-card>
           </div>
 
-          <!-- </div> -->
+          </div>
           <!-- <p>選択中: {{ this.isSelectedImage[1] }}</p> -->
-          <div v-if="isSelectedImage.length <= 3">
+          <div v-if="ArticleData.isSelectedImage.length < 3">
            <vue-select-image
-              :data-images="ArticleData.Manga_image"
+              :data-images="Manga_image"
               :is-multiple="true"
               @onselectmultipleimage="onSelectImage"
-              v-model="isSelectedImage"
+              v-model="ArticleData.isSelectedImage"
             >
           </vue-select-image>
           </div>
@@ -89,8 +89,8 @@
 
         </v-card>
 
-        <v-card>
-        <v-card-title class="cyan">
+        <v-card color="#D8D6D5">
+        <v-card-title>
           <span class="text-h5 white--text">3 ニックネーム</span>
 
           <v-spacer></v-spacer>
@@ -98,10 +98,10 @@
         </v-card-title>
         <v-text-field
             v-model="ArticleData.nickname"
-            id="nickname"
             type="text"
             label="ニックネーム"
           ></v-text-field>
+          <p>{{ ArticleData.nickname }}</p>
 
           <v-btn
             depressed
@@ -119,39 +119,46 @@
 <script>
 import axios from 'axios';
 
+
 export default {
     data(){
         return {
-      // dataImages:[{
-      //   id: '',
-      //   src: '',
-      //   title: ''
-      // }],
 
             ArticleData: {
-              thame: '',
-              Manga_image: [],
-              // Manga_url2: '',
-              // Manga_url3: '',
+              thame: '', 
+              source_url: [],
+              isSelectedImage: [],
               nickname: ''
             },
             keyword: '',
-            isSelectedImage: [],
+            Manga_image: [],
+            // isSelectedImage: [],
             initialSelected: [],
         };
     },
 
+
     methods: {
       createArticle() {
+        
         axios.post('http://127.0.0.1:8000/api/article', {
             thame: this.ArticleData.thame,
-            // img_url1: this.ArticleData.Manga_url1,
-            // img_url2: this.ArticleData.Manga_url2,
-            // img_url3: this.ArticleData.Manga_url3,
+            img_url: this.ArticleData.isSelectedImage,
+            source_url: this.ArticleData.source_url,
             nickname: this.ArticleData.nickname
         })
         .then(res => {
-          console.log(res);
+          this.$router.push("/");
+          this.$store.dispatch("showMessage", {
+            message: "投稿しました",
+            type: "sucess",
+            status: true,
+          },
+            { root: true }
+          )
+          
+        }).catch(error => {
+          console.log(error.responce);
         })
       },
 
@@ -162,9 +169,21 @@ export default {
         }
         })
         .then(res => {
-          this.ArticleData.Manga_image = res.data;
+          if(res.data){
+            this.Manga_image = res.data;
+            this.ArticleData.source_url = res.data.source_url;
 
-          console.log(this.ArticleData.Manga_image);
+          console.log(res.data[0].source_url);
+          }else{
+              this.$store.dispatch("showMessage", {
+                message: "漫画を検索できませんでした",
+                type: "red darken-1",
+                status: true,
+          },
+            { root: true }
+          )
+          }
+          
         }).catch(error => {
           console.log(error.responce);
         })
@@ -172,13 +191,24 @@ export default {
 
       onSelectImage(selected){
         let arr = [];
+        let source = [];
         for(let i=0; i<selected.length; i++){
-       arr.push(selected[i].id, selected[i].src, selected[i].alt);
-    }
+       arr.push(selected[i].src);
+       source.push(selected[i].source_url)
 
-    this.isSelectedImage = arr;
-    console.log(this.isSelectedImage.length);
-    console.log(this.isSelectedImage);
+    }
+    // let source = [];
+    // for(let x=0; x<selected.length; x++){
+    //   source.push(selected[i].source_url)
+    // }
+
+    // console.log(arr[0])
+    this.ArticleData.isSelectedImage = arr;
+    this.ArticleData.source_url = source;
+    
+
+    // console.log(this.ArticleData.isSelectedImage.length);
+    console.log(this.ArticleData.source_url);
       }
     }
     

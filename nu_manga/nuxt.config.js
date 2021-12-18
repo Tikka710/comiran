@@ -21,14 +21,17 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@fortawesome/fontawesome-free',
+    '@fortawesome/fontawesome-free/css/all.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     {
       src: '@/plugins/plugin',
-      mode: 'client'
-    }
+      mode: 'client',
+    },
+    // { src: '~/plugins/persistedState.client.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -37,6 +40,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/vuetify',
+    // ['@nuxtjs/google-fonts', { families: { Inter: true }, display: 'block', download: true, inject: true }],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -44,6 +48,11 @@ export default {
     // https://go.nuxtjs.dev/buefy
     'nuxt-buefy',
   ],
+
+  vuetify: {
+    customVariables: ['~/assets/sass/variables.scss'],
+    treeShake: true
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

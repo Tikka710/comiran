@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\Mangafeedcontroller;
 use App\Http\Controllers\Api\ThemaController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,9 @@ use App\Http\Controllers\Api\ArticleController;
 */
 // Route::apiResource('thame', ThemaController::class);
 Route::apiResource('article', ArticleController::class);
+// Route::post('article', 'Api\ArticleController@store');
 Route::apiResource('feed', Mangafeedcontroller::class);
+Route::apiResource('like', Likecontroller::class);
 
 
 

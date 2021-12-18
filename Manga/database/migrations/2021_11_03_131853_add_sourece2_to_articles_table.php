@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
+class AddSourece2ToArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,10 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nickname', 20);
-            $table->string('thame', 24);
-            $table->text('img_url1');
-            $table->text('img_url2');
-            $table->text('img_url3');
+        Schema::table('articles', function (Blueprint $table) {
             $table->text('source_url1');
             $table->text('source_url2');
             $table->text('source_url3');
-            $table->timestamps();
         });
     }
 
@@ -34,6 +27,10 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::table('articles', function (Blueprint $table) {
+            Schema::dropIfExists('source_url1');
+            Schema::dropIfExists('source_url2');
+            Schema::dropIfExists('source_url3');
+        });
     }
 }
